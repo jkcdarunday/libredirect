@@ -300,6 +300,11 @@ function rewrite(url, originUrl, frontend, randomInstance) {
     case "proxiTok":
       if (url.pathname.startsWith("/email")) return randomInstance
       return `${randomInstance}${url.pathname}${url.search}`
+    case "offtiktok":
+      if (url.pathname.startsWith("/email")) return randomInstance
+      const hostSplit = url.host.split(".")
+      if (hostSplit[0] !== "www") return `${randomInstance}/sd/${hostSplit[0]}${url.pathname}${url.search}`
+      return `${randomInstance}${url.pathname}${url.search}`
     case "waybackClassic": {
       const regex = /^\/\web\/(?:[0-9]+)?\*\/(.*)/.exec(url.pathname)
       if (regex) {
@@ -778,6 +783,7 @@ const defaultInstances = {
   lightTube: ["https://tube.kuylar.dev"],
   poketube: ["https://poketube.fun"],
   proxiTok: ["https://proxitok.pabloferreiro.es"],
+  offtiktok: ["https://offtiktok.com/"],
   redlib: ["https://safereddit.com"],
   eddrit: ["https://eddrit.com"],
   scribe: ["https://scribe.rip"],
